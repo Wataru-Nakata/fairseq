@@ -37,7 +37,7 @@ def get_parser():
     parser.add_argument(
         "--feature_type",
         type=str,
-        choices=["logmel", "hubert", "w2v2", "cpc"],
+        choices=["logmel", "hubert", "w2v2", "cpc", 'necobert', 'dac', 'necobert_masked'],
         default=None,
         help="Acoustic feature type",
     )
@@ -161,6 +161,7 @@ def main(args, logger):
                 manifest_path=args.manifest_path,
                 sample_pct=args.sample_pct,
                 flatten=True,
+                channel_id=None,
             )
             if not args.out_features_path
             else get_and_dump_features(

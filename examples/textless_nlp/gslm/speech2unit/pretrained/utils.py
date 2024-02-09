@@ -23,6 +23,15 @@ from examples.textless_nlp.gslm.speech2unit.pretrained.logmel_feature_reader imp
 from examples.textless_nlp.gslm.speech2unit.pretrained.w2v2_feature_reader import (
     Wav2VecFeatureReader,
 )
+from examples.textless_nlp.gslm.speech2unit.pretrained.necobert_feature_reader import (
+    NecoBERTFeatureReader
+)
+from examples.textless_nlp.gslm.speech2unit.pretrained.necobert_masked_feature_reader import (
+    NecoBERTMaskedFeatureReader
+)
+from examples.textless_nlp.gslm.speech2unit.pretrained.dac_feature_reader import (
+    DACFeatureReader
+)
 
 
 def get_feature_reader(feature_type):
@@ -34,6 +43,12 @@ def get_feature_reader(feature_type):
         return Wav2VecFeatureReader
     elif feature_type == "cpc":
         return CpcFeatureReader
+    elif feature_type == "necobert":
+        return NecoBERTFeatureReader
+    elif feature_type == "necobert_masked":
+        return NecoBERTMaskedFeatureReader
+    elif feature_type == "dac":
+        return DACFeatureReader
     else:
         raise NotImplementedError(f"{feature_type} is not supported.")
 
@@ -104,6 +119,7 @@ def get_and_dump_features(
     sample_pct,
     flatten,
     out_features_path,
+    channel_id=None,
 ):
     # Feature extraction
     features_batch = get_features(
@@ -113,6 +129,7 @@ def get_and_dump_features(
         manifest_path=manifest_path,
         sample_pct=sample_pct,
         flatten=flatten,
+        channel_id=channel_id
     )
 
     # Save features

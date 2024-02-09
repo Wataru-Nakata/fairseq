@@ -32,7 +32,7 @@ def get_parser():
     parser.add_argument(
         "--feature_type",
         type=str,
-        choices=["logmel", "hubert", "w2v2", "cpc"],
+        choices=["logmel", "hubert", "w2v2", "cpc",'necobert','dac','necobert_masked'],
         default=None,
         required=True,
         help="Acoustic feature type",
@@ -124,7 +124,7 @@ def main(args, logger):
         for i, feats in enumerate(features_batch):
             pred = kmeans_model.predict(feats)
             pred_str = " ".join(str(p) for p in pred)
-            base_fname = os.path.basename(fnames[i]).rstrip('.'+args.extension.lstrip('.'))
+            base_fname = fnames[i]
             if args.channel_id is not None:
                 base_fname = base_fname+f'-channel{args.channel_id}'
             if not args.hide_fname:
